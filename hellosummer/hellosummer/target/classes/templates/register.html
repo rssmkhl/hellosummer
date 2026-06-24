@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -9,85 +12,115 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #10232A 0%, #3D4D55 50%, #161616 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 90%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
         }
         h2 {
             text-align: center;
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #D3C3B9;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #A79E9C;
+            font-size: 14px;
+            margin-bottom: 40px;
+            font-weight: 400;
         }
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
+            margin-bottom: 10px;
+            font-size: 13px;
             font-weight: 500;
+            color: #A79E9C;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
+            padding: 16px 18px;
+            border: 1px solid rgba(167, 158, 156, 0.3);
+            border-radius: 12px;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #D3C3B9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+        }
+        input::placeholder {
+            color: rgba(167, 158, 156, 0.5);
         }
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #B58863;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(181, 136, 99, 0.15);
         }
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
+            padding: 16px;
+            background: linear-gradient(135deg, #B58863 0%, #c79a75 100%);
+            color: #161616;
             border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            cursor: pointer;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 12px;
+            letter-spacing: 0.3px;
         }
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(181, 136, 99, 0.4);
         }
-        .login-link {
+        button:active {
+            transform: translateY(0);
+        }
+        .link-container {
             text-align: center;
-            margin-top: 25px;
-            color: #666;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #A79E9C;
         }
-        .login-link a {
-            color: #667eea;
+        .link-container a {
+            color: #B58863;
             text-decoration: none;
             font-weight: 600;
+            margin-left: 6px;
+            transition: color 0.2s ease;
         }
-        .icon {
-            text-align: center;
-            font-size: 4em;
-            margin-bottom: 10px;
+        .link-container a:hover {
+            color: #D3C3B9;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">📝</div>
-        <h2>Register</h2>
+        <h2>Create Account</h2>
+        <p class="subtitle">Join us today</p>
+        
         <form th:action="@{/register}" th:object="${user}" method="post">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -109,10 +142,11 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" th:field="*{password}" required placeholder="Choose a password">
             </div>
-            <button type="submit">Register</button>
+            <button type="submit">Create Account</button>
         </form>
-        <div class="login-link">
-            Already have an account? <a th:href="@{/login}">Login here</a>
+        
+        <div class="link-container">
+            Already have an account? <a th:href="@{/login}">Sign in</a>
         </div>
     </div>
 </body>
